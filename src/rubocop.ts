@@ -130,9 +130,13 @@ ${copName}:
     };
 
     const jsonOutputFormat = ['--format', 'json'];
-    const args = getCommandArguments(fileName)
-      .concat(this.additionalArguments)
-      .concat(jsonOutputFormat);
+    // Check if fileName contains spaces
+    const quotedFileName = fileName.includes(' ') ? `"${fileName}"` : fileName;
+    
+    const args = (0, helper_1.getCommandArguments)(quotedFileName)
+        .concat(this.additionalArguments)
+        .concat(jsonOutputFormat);
+    
     if (this.config.useServer) {
       args.push('--server');
     }
